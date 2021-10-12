@@ -1,40 +1,40 @@
-// console.log(100)
+console.log(100)
 
-// setTimeout(() => {
-//   console.log(200)
-// })
+setTimeout(() => {
+  console.log(200)
+})
 
-// Promise.resolve().then(() => {
-//   console.log(300)
-// })
+Promise.resolve().then(() => {
+  console.log(300)
+})
 
-// console.log(400)
+console.log(400)
 
 // 100 400 300 200
 
-async function async1() {
-  console.log('async1 start') // 2
-  await async2()
-  console.log('async1 end') // 6
-}
+// async function async1() {
+//   console.log('async1 start') // 2
+//   await async2()
+//   console.log('async1 end') // 6
+// }
 
-async function async2 () {
-  console.log('async2') // 3
-}
+// async function async2 () {
+//   console.log('async2') // 3
+// }
 
-console.log('script start') // 1
+// console.log('script start') // 1
 
-setTimeout(() => {
-  console.log('setTimeout') // 8
-})
+// setTimeout(() => {
+//   console.log('setTimeout') // 8
+// })
 
-async1()
+// async1()
 
-new Promise((resolve) => {
-  console.log('promise1') // 4
-  resolve()
-}).then(() => {
-  console.log('promise2') // 7
-})
+// new Promise((resolve) => {
+//   console.log('promise1') // 4
+//   resolve()
+// }).then(() => {
+//   console.log('promise2') // 7
+// })
 
-console.log('script end') // 5
+// console.log('script end') // 5

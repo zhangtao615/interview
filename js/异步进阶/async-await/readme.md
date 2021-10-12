@@ -37,3 +37,7 @@ fn().then(res => console.log(res)) // 100
   }
 })()
 ```
+### 异步本质
+
+async/await是消灭异步回调的终极武器，JS还是单线程，还是得有异步，还得基于event loop，async/await只是一个语法糖
+
