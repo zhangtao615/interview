@@ -17,3 +17,12 @@
 
 1. then正常返回resolved，里面有报错则返回rejected
 2. catch正常返回resolved，里面有报错则返回rejected
+
+### 手写Promise
+
+**要求**
+1. 可以初始化 & 异步调用
+2. 支持链式调用
+3. 实现基本Promise API：resolve、reject、race、all...
+
+#### 1. 手写Promise构造函数
