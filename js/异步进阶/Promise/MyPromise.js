@@ -39,7 +39,7 @@ class MyPromise {
     fn2 = typeof fn2 === 'function' ? fn2 : (e) => e
 
     if (this.state === 'pending') {
-      return new MyPromise((resolve, reject) => [
+      return new MyPromise((resolve, reject) => {
         this.rejectCallbacks.push(() => {
           try {
             const newValue = fn1(this.value)
@@ -56,7 +56,7 @@ class MyPromise {
             reject(e)
           }
         })
-      ])
+      })
     }
     if (this.state === 'fulfilled') {
       return new MyPromise((resolve, reject) => {
