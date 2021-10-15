@@ -6,7 +6,7 @@
 function ajax () {
   let xhr = new XMLHttpRequest()
 
-  xhr.open(method, url, false)
+  xhr.open(method, url, true)
 
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
@@ -31,3 +31,36 @@ function ajax () {
 4. 5xx: 服务端错误
 ### 跨域
 
+**同源策略**
+
+1. 使用ajax请求时，浏览器要求当前网页和server端必须同源
+2. 对于url来说，同源必须是协议、域名、端口一致
+3. 图片、css、js文件可以跨域
+
+**跨域注意事项**
+
+1. 所有的跨域必须进过server端允许和配合
+2. 未经server端允许就实现跨域，说明浏览器有漏洞
+
+**常见跨域方式**
+
+1. JSONP
+
+> 服务端可以任意动态拼接数据返回，只要符合html格式，当使用`script标签`访问js文件时，也可返回我们需要的数据
+
+```
+// jquery实现jsonp
+$.ajax({
+  url: '',
+  dataType: 'jsonp',
+  jsonpCallback: 'callback',
+  success: () => {
+
+  }
+})
+
+```
+
+2. CORS
+
+由服务端设置`http header`中`Access-Control-Allow-Origin`属性，允许传递cookie则需要设置`Access-Control-Allow-Credentials`为true
