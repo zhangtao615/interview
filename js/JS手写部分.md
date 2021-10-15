@@ -115,4 +115,47 @@ class Promise {
     return this.then(null, fn)
   }
 }
+
+Promise.resolve = (value) => {
+  return new Promise((resolve, reject) => resolve(value))
+}
+
+Promise.reject = (reason) => {
+  return new Promise((reject, reject) => reject(reason))
+}
+
+Promise.all = (promiseList) => {
+  const result = []
+  const length = promiseList.length
+  let resolvedCount = 0
+  return new Pormise((resolve, reject) => {
+    promiseList.forEach((promise) => {
+      promise.then(data => {
+        result.push(data)
+        resolvedCount++
+        if (resolvedCount === length) {
+          resolve(result)
+        }
+      }).catch(error) {
+        reject(error)
+      }
+    })
+  })
+}
+
+Promise.race = (promiseList) => {
+  let resolved = false
+  return new Promise((resolved, reject) => {
+    promiseList.forEach(promise => {
+      p.then(data => {
+        if (!resolved) {
+          resolve(data)
+          resolved = true
+        }
+      }).catch(error) {
+        reject(error)
+      }
+    })
+  })
+}
 ```
