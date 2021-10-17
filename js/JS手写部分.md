@@ -20,7 +20,7 @@ const deepClone = (obj) => {
 ### 手写bind
 ```
 Function.prototype.bind = function () {
-  // 结构参数
+  // 解构参数
   const [constructor, ...args] = [...arguments]
   // 获取第一项
   const _this = constructor
@@ -157,5 +157,39 @@ Promise.race = (promiseList) => {
       }
     })
   })
+}
+```
+
+### 防抖debounce
+```
+const debounce = (fn, delay) => {
+  let timer = null;
+  return function() {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      fn.apply(this, arguments)
+      timer = null
+    }, delay)
+  }
+}
+```
+
+### 节流throttle
+
+```
+function throttle(fn, delay) {
+  let timer = null
+  return function () {
+    if (timer) {
+      return
+    }
+
+    timer = setTimeout(() => {
+      fn.apply(this, arguments)
+      timer = null
+    }, delay)
+  }
 }
 ```
