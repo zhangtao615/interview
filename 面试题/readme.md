@@ -242,3 +242,169 @@ window.onerror = function (message, source, lineNum, colNum, error) {
 3. window.JSON是一个全局对象：JSON.stringify、JSON.parse
 
 **30. 获取当前url的参数**
+
+1. location.search
+
+```
+function query(name) {
+  const search = location.search.substring(1)
+
+  const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`, 'i') // `i`表示不区分大小写
+  const res = search.match(reg)
+
+  if (res == null) {
+    return null
+  }
+  return res[2]
+}
+```
+
+2. URLSearchParams
+
+```
+function query(name) {
+  const search = location.search()
+  const p = new URLSearchParams(search)
+  return p.get(name)
+}
+
+```
+
+**31. 将url参数解析成js对象**
+
+1. 传统方式，分析search
+```
+function queryObj() {
+  const res = {}
+  const search = location.search.substring(1)
+  search.split('&').forEach(params => {
+    const arr = params.split('=')
+    const key = arr[0]
+    const value = arr[1]
+    res[key] = value
+  })
+  return res
+}
+```
+
+2. 使用URLSearchParams
+```
+function queryObj() {
+  const res = {}
+  const list = new URLSearchParams(location.search)
+  list.forEach((val, key) => {
+    res[key] = value
+  })
+  return res
+}
+```
+
+**32. 手写flatten，考虑多层级**
+
+```
+function flatten(arr) {
+  // 判断数组中是否还有数组
+  const isDeep = arr.some(item => item instanceof Array)
+  if (!isDeep) {
+    return arr
+  } else {
+    const res = Array.prototype.concat.apply([], arr)
+    return flatten(res)
+  }
+}
+```
+
+**33. 数组去重**
+
+1. set
+```
+const arr = [1, 2, 3, 3, 3]
+const newArr = Array.from(new Set(arr))
+```
+
+2. 遍历去重
+
+```
+function unique(arr) {
+  const res = []
+  arr.forEach(item => {
+    if (res.indexOf(item) < 0) {
+      res.push(item)
+    }
+  })
+  return item
+}
+```
+
+**34. 手写深拷贝**
+
+```
+const deepClone = (obj) => {
+  if (typeof obj !== 'object' || typeof obj == null) {
+    return null
+  }
+  const res = obj instanceof Array ? [] : {}
+
+  for(let key of obj) {
+    if (obj.hasOwnProperty(key)){
+      res[key] = deepClone(obj[key])
+    }
+  }
+  return res
+}
+```
+
+**35. 介绍RAF requestAnimateFrame**
+
+
+**36. 前端性能优化**
+
+
+**37. Map和Set有序和无序**
+
+在JS中Object是无序的，Array是有序的
+
+```
+// array 
+const arr = [1, 2, 3, 4]
+console.log(arr) // [1, 2, 3, 4]
+
+const arr2 = [2, 3, 4, 1]
+console.log(arr2) // [2, 3, 4, 1]
+
+// Object
+const obj = {
+  "a": 100,
+  "b": 200,
+  "c": 300
+}
+Object.keys(obj) // ["a", "b", "c"]
+
+const obj2 = {
+  "a": 100,
+  "c": 300,
+  "b": 200
+}
+Object.keys(obj2) // ['a', 'c', 'b']
+```
+
+**38. Map和Object的区别**
+
+1. API不同，Map可以以任意类型为key
+2. Map是有序结构，Object是无序结构
+3. Map操作很快
+
+**39. Set和数组的区别**
+
+1. API不同
+2. Set元素不嫩重复
+3. Set是无序结构，操作快，数组是有序的，速度慢
+
+**40. WeakMap和WeakSet区别**
+
+1. 弱引用，防止内存泄漏
+2. WeakMap只能用对象作为key，WeakSet只能用对象做value
+3. 没有forEach和size，只有add、delete、has API
+
+**41. reduce方法**
+
