@@ -4,7 +4,10 @@
     <!-- <ComputedDemoVue /> -->
     <!-- <WatchDemo /> -->
     <!-- <VModel /> -->
-    <AdvanceUse />
+    <!-- <AdvanceUse /> -->
+    <LifeCycle v-if="flag" :msg="message" />
+    <button @click="changeHandler">click</button>
+    <button @click="updateHandler">udpate</button>
   </div>
 </template>
 
@@ -13,7 +16,8 @@
 // import ComputedDemoVue from './components/BaseUse/ComputedDemo.vue'
 // import WatchDemo from './components/BaseUse/ComputedDemo.vue'
 // import VModel from './components/AdvanceUse/VModel.vue'
-import AdvanceUse from './components/AdvanceUse/index.vue'
+// import AdvanceUse from './components/AdvanceUse/index.vue'
+import LifeCycle from './components/LifeCycle/index.vue'
 export default {
   name: 'App',
   components: {
@@ -21,7 +25,22 @@ export default {
     // ComputedDemoVue,
     // WatchDemo,
     // VModel,
-    AdvanceUse
+    // AdvanceUse,
+    LifeCycle
+  },
+  data() {
+    return {
+      flag: true,
+      message: 'hello'
+    }
+  },
+  methods: {
+    changeHandler() {
+      this.flag = !this.flag
+    },
+    updateHandler() {
+      this.message = this.message + Date.now()
+    }
   }
 }
 </script>

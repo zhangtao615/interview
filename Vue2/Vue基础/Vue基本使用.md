@@ -79,6 +79,6 @@ mounted：页面已经渲染完成
 
 ### 8. 父子生命周期调用顺序
 
-1. 渲染：父组件beforeCreate -> 父组件created -> 父组件beforeMounted -> 子组件beforeCreated -> 子组件created -> 子组件beforeMounted -> 子组件mounted -> 父组件mounted
+1. 渲染：父组件beforeCreate -> 父组件created -> 父组件beforeMount -> 子组件beforeCreate -> 子组件created -> 子组件beforeMount -> 子组件mounted -> 父组件mounted
 2. 更新：父beforeUpdate -> 子beforeUpdate -> 子updated -> 父updated
 3. 销毁：父beforeDestory -> 子beforeDestory -> 子destoryed -> 父destoryed
