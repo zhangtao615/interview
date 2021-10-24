@@ -85,3 +85,157 @@
 1. 设计初衷：在不丢失响应式的情况下，把对象数据分解/扩散
 2. 前提：针对响应式对象，并非普通对象
 3. 注意：不创造响应式，而是延续响应式
+
+### 5. Vue3升级项
+
+1. createApp
+2. emits属性
+3. 生命周期
+4. 多事件
+5. Fragment
+6. 移除.async
+7. 异步组件写法
+8. 移除filter
+9. Teleport
+10. Suspense
+11. Composition API
+
+**createApp**
+
+```
+// vue2.x
+const app = new Vue({})
+
+// vue3.x
+const app = Vue.createApp({})
+
+// vue2.x
+Vue.use()
+Vue.mixin()
+Vue.component()
+Vue.directive()
+
+// vue3.x
+app.use()
+app.mixin()
+app.component()
+app.directive()
+```
+
+**emits属性**
+
+```
+// 父组件
+<HelloWorld :msg="msg" @sayHello="sayHello">
+
+export default {
+  name: 'HelloWorld,
+  props: ['msg'],
+  emits: ['sayHello'],
+  setup(props, { emit }) {
+    emit('sayHello', 'hello')
+  }
+}
+```
+
+**多事件处理**
+
+```
+// 在methods中定义多个函数
+<button @click="one($event), two($event), three($event)">click</button>
+```
+
+**Fragment**
+
+Vue3中模版中支持多个节点
+
+**移除.sync**
+
+```
+// vue2.x
+<Component v-bind:title.sync="title" />
+
+// vue3.x
+<Component v-model:title="title" />
+```
+
+**异步组件**
+
+```
+// vue2.x
+new Vue({
+  components: {
+    'my-component': () => {'../async-component.vue'}
+  }
+})
+
+// vue3.x
+import { createApp, defineAsyncComponent } from 'vue'
+
+createApp({
+  components: {
+    AsyncComponent: defineAsyncComponent(() => import('./components/AsyncComponent.vue'))
+  }
+})
+```
+
+**Teleport**
+
+可以将组件挂载到指定的元素下
+
+**Suspense**
+
+![Suspense](https://7years-img.oss-cn-beijing.aliyuncs.com/imooc/Suspense.png)
+
+### 6. Composition API实现逻辑复用
+
+1. 抽离代码逻辑到一个函数
+2. 函数命名约定useXXX
+3. setup中引用函数
+
+```
+import { ref, onMounted, onUnmounted } from 'vue'
+const useMousePosition = () => {
+  const x = ref(0)
+  const y = ref(0)
+  const update = (e) => {
+    x.value = e.pageX
+    y.value = e.pageY
+  }
+
+  onMounted(() => {
+    console.log('mousemove')
+    window.addEventListener('mousemove', update)
+  })
+  onUnmounted(() => {
+    window.removeEventListener('mousemove', update)
+  })
+  return {
+    x,
+    y
+  }
+}
+
+export default useMousePosition\
+```
+
+### 7. setup中如何获取组件实例
+
+1. 在setup中和其他Componsition API中没有this
+2. 可通过getCUrrentInstance获取当前实例
+3. data中定义的值，在setup中打印的时候需要在onMounted中才能获取到
+
+### 8. Vue3为什么比Vue2快
+
+1. Proxy响应式
+2. PatchFlag
+3. hoistStatic
+4. catchHandler
+5. ssr优化
+6. tree-shaking
+
+**patchFlag**
+
+1. 编译模版时，动态节点做标记
+2. 标记，分不同类型，如TEXT PROPS
+3. diff算法时，可以区分静态节点以及不同类型的动态节点

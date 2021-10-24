@@ -1,19 +1,25 @@
 <template>
   <!-- <Ref /> -->
   <!-- <ToRef /> -->
-  <ToRefs />
+  <!-- <ToRefs /> -->
+  <!-- <Watch /> -->
+  <GetInstance />
 </template>
 
 <script>
 // import Ref from './components/Ref.vue'
 // import ToRef from './components/ToRef.vue'
-import ToRefs from './components/ToRefs.vue'
+// import ToRefs from './components/ToRefs.vue'
+// import Watch from './components/Watch.vue'
+import GetInstance from './components/GetInstance.vue'
 export default {
   name: 'App',
   components: {
     // Ref,
     // ToRef,
-    ToRefs
+    // ToRefs,
+    // Watch,
+    GetInstance
   }
 }
 </script>
