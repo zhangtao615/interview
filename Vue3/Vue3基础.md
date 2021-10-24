@@ -234,8 +234,37 @@ export default useMousePosition\
 5. ssr优化
 6. tree-shaking
 
+> https://vue-next-template-explorer.netlify.app/ 进行调试
+
 **patchFlag**
 
 1. 编译模版时，动态节点做标记
 2. 标记，分不同类型，如TEXT PROPS
 3. diff算法时，可以区分静态节点以及不同类型的动态节点
+
+![patchFlag下diff算法](https://7years-img.oss-cn-beijing.aliyuncs.com/imooc/patchFlag.png)
+
+**hoistStatic**
+
+1. 将静态节点的定义，提升到父作用域缓存起来（当静态节点过多时，会将所有节点合并）
+2. 多个静态节点会被合并起来
+3. 拿空间换时间
+
+**cacheHandler**
+
+1. 可以缓存事件
+
+**SSR优化**
+
+1. 静态节点直接输出，绕过vdom
+2. 动态节点，还是要动态渲染
+
+**tree shaking**
+
+1. 编译时会根据不同情况引入不同的API
+
+### 9. Composition API和react hooks区别
+
+1. 前者setup只会调用一次，后者函数会被多次调用
+2. 前者无需使用useMemo useCallback，因为setup只会调用一次
+3. 前者无需考虑调用顺序，后者需要保证hooks的顺序一致

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ES Module 动态引入</title>
+</head>
+<body>
+  <p>动态引入</p>
+  <button id="btn1">load add</button>
+  <button id="btn2">load math</button>
+  <script type="module">
+    document.getElementById("btn1").addEventListener("click", async () => {
+      const add = await import('./src/add.js')
+      console.log('add', add)
+      const res = add.default(10 ,20)
+      console.log('res', res)
+    })
+    document.getElementById("btn2").addEventListener("click", async () => {
+      const math = await import('./src/math.js')
+      console.log('math', math)
+      const resAdd = math.add(10, 20)
+      const resMulti = math.multi(5, 6)
+
+      console.log('resAdd', resAdd)
+      console.log('resMulti', resMulti)
+    })
+  </script>
+</body>
+</html>
