@@ -1,7 +1,7 @@
 // 函数作为返回值返回
 
 // function create() {
-//   let a = 100
+//   let a = 100lll
 //   return function () {
 //     console.log(a) // 100
 //   }

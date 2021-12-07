@@ -20,14 +20,100 @@ event.nativeEvent是原生事件对象，所有的事件都是被挂载到 docum
 
 **不可变值**
 
-1. 不要直接修改state里面的值，需要在setState中修改
+1. 不能直接操作state里面的值，需要在setState中修改
 ```
 this.state.count++ // 错误
 
 this.setState({
   count: this.state.count++ // 正确
 })
+
 ```
+2. 不能提前修改state里面的值，当需要改变时再修改，并且不能改变之前的值
 
 **可能是异步更新**
 
+1. setState修改数据之后打印，修改的值没有变化
+
+```
+// count: 1
+this.setState({
+  count: this.state.count + 1
+})
+
+console.log('count', this.state.count) // count, 1
+```
+
+2. 如何获取修改后的值
+
+```
+// count: 1
+this.setState({
+  count: this.state.count + 1
+}, () => {
+  console.log('count:', this.state.count)
+})
+
+```
+
+3. setTimeout和自定义事件中是同步的
+
+```
+// setTimeout
+setTimeout(() => {
+  this.setState({
+    count: this.state.count + 1
+  })
+
+  console.log('同步跟新count:', this.state.count)
+}, 1000
+
+// 自定义事件
+
+document.body.addEventListener('click', () => {
+  this.setState({
+    count: this.state.count + 1
+  })
+  console.log('自定义事件中的count', this.state.count)
+})
+
+```
+
+**可能会被合并**
+
+1. 传入对象会被合并
+
+```
+// count: 0
+this.setState({
+  count: this.state.count + 1
+})
+this.setState({
+  count: this.state.count + 1
+})
+this.setState({
+  count: this.state.count + 1
+})
+```
+最终结果三次操作会被合并成一次，count为1
+
+2. 传入函数不会被合并
+
+```
+this.setState((pre, props) => {
+  return {
+    count: pre.count + 1,
+  }
+})
+this.setState((pre, props) => {
+  return {
+    count: pre.count + 1,
+  }
+})
+this.setState((pre, props) => {
+  return {
+    count: pre.count + 1,
+  }
+})
+```
+三次操作不会被合并，结果count为3
